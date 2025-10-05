@@ -1,0 +1,4 @@
+light; sudo, dev, www-data
+idimma; sudo
+mayowa; dev,www-data
+siva; abc, xyz, 123
