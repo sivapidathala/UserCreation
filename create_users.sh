@@ -8,6 +8,7 @@
 # <userfile> format: username; group1,group2,...
 # - Fields separated by semicolon ';'
 # - Groups separated by comma ','
+#- Ignore whitespace
 #
 # The script:
 # - Ensures it runs as root
@@ -69,7 +70,8 @@ fi
 # Prepare log & password storage
 mkdir -p "$(dirname "${LOGFILE}")"
 touch "${LOGFILE}"
-chmod 644 "${LOGFILE}"          # log readable by standard tools; not secret
+chmod 644 "${LOGFILE}"         
+# log readable by standard tools; not secret
 log "===== Starting user creation run (input: ${USERFILE}) ====="
 
 # Prepare secure directory for password storage
@@ -185,9 +187,6 @@ while IFS= read -r rawline || [[ -n "$rawline" ]]; do
     # continue to store? we skip storing if setting failed
     continue
   fi
-
-  # Optional: Force password expiry on first login (uncomment next line if desired)
-  # chage -d 0 "${username}"
 
   # Store credentials in CSV (username,password) - file already has header
   # Use a temp file to avoid race conditions
